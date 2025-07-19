@@ -1,0 +1,27 @@
+ipykernel
+pandas
+numpy
+seaborn
+matplotlib
+scikit-learn
+xgboost
+streamlit
+dill
+pickle-mixin
+imbalanced-learn
+from_root
+evidently
+dill
+PyYAML
+boto3
+mypy-boto3-s3
+botocore
+fastapi
+uvicorn
+jinja2
+python-multipart
+pymongo
+lightgbm
+catboost
+
+-e .

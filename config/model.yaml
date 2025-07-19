@@ -1,0 +1,87 @@
+LogisticRegression:
+  module: sklearn.linear_model
+  class: LogisticRegression
+  params:
+    max_iter: 1000
+    C: [0.01, 0.1, 1, 10]
+    solver: ["liblinear", "lbfgs"]
+    penalty: ["l2"]
+
+RandomForestClassifier:
+  module: sklearn.ensemble
+  class: RandomForestClassifier
+  params:
+    n_estimators: [100, 200]
+    max_depth: [10, 20, 30]
+    min_samples_split: [2, 5]
+    max_features: ["sqrt", "log2"]
+
+Decision Tree Classifier": 
+  module : sklearn.tree
+  class : DecisionTreeClassifier
+  params": 
+    "max_depth": [3, 5, 10, None]
+    "min_samples_split": [2, 5, 10]
+    "criterion": ["gini", "entropy"]
+
+GradientBoostingClassifier:
+  module: sklearn.ensemble
+  class: GradientBoostingClassifier
+  params:
+    n_estimators: [100, 200]
+    learning_rate: [0.01, 0.1]
+    max_depth: [3, 5]
+
+AdaBoostClassifier:
+  module: sklearn.ensemble
+  class: AdaBoostClassifier
+  params:
+    n_estimators: [50, 100, 200]
+    learning_rate: [0.01, 0.1, 1.0]
+
+SVC:
+  module: sklearn.svm
+  class: SVC
+  params:
+    C: [0.1, 1, 10]
+    kernel: ["linear", "rbf"]
+    gamma: ["scale", "auto"]
+
+KNeighborsClassifier:
+  module: sklearn.neighbors
+  class: KNeighborsClassifier
+  params:
+    n_neighbors: [3, 5, 7]
+    weights: ["uniform", "distance"]
+    metric: ["minkowski", "euclidean"]
+
+GaussianNB:
+  module: sklearn.naive_bayes
+  class: GaussianNB
+  params: {}
+
+XGBClassifier:
+  module: xgboost
+  class: XGBClassifier
+  params:
+    n_estimators: [100, 200, 300]
+    learning_rate: [0.01, 0.1]
+    max_depth: [3, 6, 9]
+    subsample: [0.8, 1.0, 2.0]
+
+LGBMClassifier:
+  module: lightgbm
+  class: LGBMClassifier
+  params:
+    n_estimators: [100, 200, 300]
+    learning_rate: [0.01, 0.1]
+    num_leaves: [31, 50, 70]
+    boosting_type: ["gbdt", "dart"]
+
+CatBoostClassifier:
+  module: catboost
+  class: CatBoostClassifier
+  params:
+    iterations: [100, 300, 500]
+    learning_rate: [0.01, 0.1]
+    depth: [4, 6, 10]
