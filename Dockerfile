@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 
+# 👇 This is the fix
+RUN pip install --no-cache-dir --force-reinstall --no-binary :all: numpy==1.24.4
+
+# Install other Python dependencies
 RUN pip install --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt
 
