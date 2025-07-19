@@ -1,10 +1,12 @@
-FROM python:3.8.5-slim-bullseye
+FROM python:3.8-slim-bullseye
 
 WORKDIR /app
 
 RUN apt-get update --allow-releaseinfo-change \
  && apt-get install -y --no-install-recommends \
-       build-essential cmake libgomp1 \
+      build-essential \
+      cmake \
+      libgomp1 \
  && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
