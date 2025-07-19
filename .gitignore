@@ -209,3 +209,5 @@ __marimo__/
 artifact/
 catboost_info/
 demo.py
+TelcoChurn_user_accessKeys.csv
+Telco_churn.pem
