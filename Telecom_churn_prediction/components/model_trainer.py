@@ -8,7 +8,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import StackingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
-from neuro_mf  import ModelFactory
 from sklearn.model_selection import GridSearchCV, cross_val_score
 from traitlets import Float
 
