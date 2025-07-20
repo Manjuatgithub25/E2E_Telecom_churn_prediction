@@ -28,7 +28,7 @@ class TelcoChurnEstimator:
             print(e)
             return False
 
-    def load_model(self,)->TelcoChurnModel:
+    def load_model(self)->TelcoChurnModel:
         """
         Load the model from the model_path
         :return:

@@ -36,7 +36,7 @@ class DataTransformation:
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
         try:
-            return pd.read_csv(file_path)
+            return pd.read_csv(file_path, encoding='ISO-8859-1')
         
         except Exception as e:
             raise CustomException(e, sys)
@@ -90,8 +90,15 @@ class DataTransformation:
                 test_df = DataTransformation.read_data(file_path=self.data_ingestion_artifact.test_data_file_path)
 
                 # Remove blank value rows
-                train_df = train_df[~train_df.apply(lambda row: (row == " ").any(), axis=1)]
-                test_df = test_df[~test_df.apply(lambda row: (row == " ").any(), axis=1)]
+                # train_df = train_df[~train_df.apply(lambda row: (row == " ").any(), axis=1)]
+                # test_df = test_df[~test_df.apply(lambda row: (row == " ").any(), axis=1)]
+
+                train_df = train_df.applymap(lambda x: np.nan if isinstance(x, str) and x.strip().lower() in ["", " ", "na", "null", "none"] else x)
+                train_df = train_df.dropna()
+
+            # Clean test_df
+                test_df = test_df.applymap(lambda x: np.nan if isinstance(x, str) and x.strip().lower() in ["", " ", "na", "null", "none"] else x)
+                test_df = test_df.dropna()
 
                 # Change mismatched column type
                 train_df[column_required_type_change] = train_df[column_required_type_change].astype("float64")
@@ -122,14 +129,16 @@ class DataTransformation:
                 input_feature_test_df = drop_columns(df=input_feature_test_df, cols = drop_cols)
 
                 # Resample the under sampled class rows for test data
-                logger.info("Applying SMOTENC on Testing dataset")
-                input_feature_test_df_sampled, target_feature_test_df_sampled = smote_nc.fit_resample(input_feature_test_df, target_feature_test_df)
-                logger.info("Applied SMOTENC on testing dataset")
-                logger.info(f"size of test_data: {input_feature_test_df_sampled.shape}")
-                logger.info("Got train features and test features of Testing dataset")
+                # logger.info("Applying SMOTENC on Testing dataset")
+                # input_feature_test_df_sampled, target_feature_test_df_sampled = smote_nc.fit_resample(input_feature_test_df, target_feature_test_df)
+                # logger.info("Applied SMOTENC on testing dataset")
+                # logger.info(f"size of test_data: {input_feature_test_df_sampled.shape}")
+                # logger.info("Got train features and test features of Testing dataset")
 
                 num_features = input_feature_train_df_sampled.select_dtypes(exclude=["object"]).columns
                 ohe_columns = input_feature_train_df_sampled.select_dtypes(include=["object"]).columns
+
+
 
                 label_encoder = LabelEncoder()
                 preprocessor = self.get_data_transformer_object(ohe_columns, num_features)
@@ -146,8 +155,8 @@ class DataTransformation:
                     "Used the preprocessor object to fit transform the train features"
                 )
 
-                input_feature_test_arr = preprocessor.transform(input_feature_test_df_sampled)
-                target_feature_test_arr = label_encoder.transform(target_feature_test_df_sampled)
+                input_feature_test_arr = preprocessor.transform(input_feature_test_df)
+                target_feature_test_arr = label_encoder.transform(target_feature_test_df)
 
                 logger.info("Used the preprocessor object to transform the test features")
 
@@ -155,9 +164,18 @@ class DataTransformation:
                     input_feature_train_arr, np.array(target_feature_train_arr)
                 ]
 
+                target_train = train_arr[:, -1]  # Last column is target
+                unique_train, counts_train = np.unique(target_train, return_counts=True)
+
+                print("\n🎯 Train target value counts:")
+                for val, count in zip(unique_train, counts_train):
+                    logger.info(f"Value {int(val)}: {int(count)}")
+
                 test_arr = np.c_[
                     input_feature_test_arr, np.array(target_feature_test_arr)
                 ]
+
+                logger.info
 
                 logger.info("Created train array and test array")
 

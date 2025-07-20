@@ -1,5 +1,5 @@
 from Telecom_churn_prediction.entity.config_entity import ModelEvaluationConfig
-from Telecom_churn_prediction.entity.artifact_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact
+from Telecom_churn_prediction.entity.artifact_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact, DataTransformationArtifact
 from sklearn.metrics import f1_score
 from Telecom_churn_prediction.exception import CustomException
 from Telecom_churn_prediction.constants import target_column
@@ -22,11 +22,13 @@ class EvaluateModelResponse:
 class ModelEvaluation:
 
     def __init__(self, model_eval_config: ModelEvaluationConfig, data_ingestion_artifact: DataIngestionArtifact,
-                 model_trainer_artifact: ModelTrainerArtifact):
+                 model_trainer_artifact: ModelTrainerArtifact, data_transformation_artifact: DataTransformationArtifact):
         try:
             self.model_eval_config = model_eval_config
             self.data_ingestion_artifact = data_ingestion_artifact
             self.model_trainer_artifact = model_trainer_artifact
+            self.data_transformation_artifact = data_transformation_artifact
+
         except Exception as e:
             raise CustomException(e, sys) from e
 
@@ -60,14 +62,21 @@ class ModelEvaluation:
         On Failure  :   Write an exception log and then raise an exception
         """
         try:
-            test_df = pd.read_csv(self.data_ingestion_artifact.test_data_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_data_file_path, encoding='ISO-8859-1')
 
             x, y = test_df.drop(target_column, axis=1), test_df[target_column]
+
+            logger.info(f"{(x == ' ').any()}")
+
+            logger.info(f"\n🚨 Empty strings still present?: {(x == '').any()}")
+
+            logger.info(f"\n🧼 Null values per column: {x.isnull().sum()}")
         
             trained_model_f1_score = self.model_trainer_artifact.metric_artifact.f1_score
 
             best_model_f1_score=None
             best_model = self.get_best_model()
+            logger.info(f"{(x == ' ').any()}")
             if best_model is not None:
                 y_hat_best_model = best_model.predict(x)
                 best_model_f1_score = f1_score(y, y_hat_best_model)
