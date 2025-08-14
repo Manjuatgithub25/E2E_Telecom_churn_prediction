@@ -53,7 +53,7 @@ class TelcoChurnEstimator:
             raise CustomException(e, sys)
 
 
-    def predict(self,dataframe:DataFrame):
+    def predict(self,dataframe:DataFrame) -> TelcoChurnModel:
         """
         :param dataframe:
         :return:
@@ -61,6 +61,6 @@ class TelcoChurnEstimator:
         try:
             if self.loaded_model is None:
                 self.loaded_model = self.load_model()
-            return self.loaded_model.predict(dataframe=dataframe)
+            return self.loaded_model.predict_output(dataframe=dataframe)
         except Exception as e:
             raise CustomException(e, sys)

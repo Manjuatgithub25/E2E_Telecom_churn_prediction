@@ -113,7 +113,7 @@ class TelcoChurnData:
             raise CustomException(e, sys) from e
 
 class TelcoChurnClassifier:
-    def __init__(self,prediction_pipeline_config: TelcoChurnaPredictorConfig = TelcoChurnaPredictorConfig(),) -> None:
+    def __init__(self,prediction_pipeline_config: TelcoChurnaPredictorConfig = TelcoChurnaPredictorConfig()) -> None:
         """
         :param prediction_pipeline_config: Configuration for prediction the value
         """
