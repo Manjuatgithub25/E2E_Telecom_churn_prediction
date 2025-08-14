@@ -1,6 +1,6 @@
 ipykernel
 pandas
-numpy
+numpy==1.25.2
 scikit-learn
 seaborn
 matplotlib
