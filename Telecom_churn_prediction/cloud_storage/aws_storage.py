@@ -139,6 +139,7 @@ class SimpleStorageService:
                 else model_dir + "/" + model_name
             )
             model_file = func()
+            print(model_file)
             file_object = self.get_file_object(model_file, bucket_name)
             model_obj = self.read_object(file_object, decode=False)
             model = pickle.loads(model_obj)
