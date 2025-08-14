@@ -1,7 +1,7 @@
 ipykernel
 pandas
 numpy==1.24.4
-scikit-learn==1.6.1
+scikit-learn
 seaborn
 matplotlib
 xgboost
