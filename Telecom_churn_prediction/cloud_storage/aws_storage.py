@@ -78,44 +78,13 @@ class SimpleStorageService:
         except Exception as e:
             raise CustomException(e, sys) from e
 
-    # def get_file_object( self, filename: str, bucket_name: str) -> Union[List[object], object]:
-    #     """
-    #     Method Name :   get_file_object
-    #     Description :   This method gets the file object from bucket_name bucket based on filename
-
-    #     Output      :   list of objects or object is returned based on filename
-    #     On Failure  :   Write an exception log and then raise an exception
-
-    #     Version     :   1.2
-    #     Revisions   :   moved setup to cloud
-    #     """
-    #     logger.info("Entered the get_file_object method of S3Operations class")
-
-    #     try:
-    #         bucket = self.get_bucket(bucket_name)
-
-    #         file_objects = [file_object for file_object in bucket.objects.filter(Prefix=filename)]
-
-    #         func = lambda x: x[0] if len(x) == 1 else x
-
-    #         file_objs = func(file_objects)
-    #         logger.info("Exited the get_file_object method of S3Operations class")
-
-    #         return file_objs
-
-    #     except Exception as e:
-    #         raise CustomException(e, sys) from e
-
     def get_file_object(self, filename: str, bucket_name: str):
         bucket = self.get_bucket(bucket_name)
         file_objects = [file_object for file_object in bucket.objects.filter(Prefix=filename)]
-        print(file_objects)
-        print(len(file_objects))
         if not file_objects:
             raise CustomException(f"No file found for {filename}", sys)
         # Sort by last_modified descending
         file_objects.sort(key=lambda obj: obj.last_modified, reverse=True)
-        print(file_objects[0])
         return file_objects[0]
 
 
@@ -139,7 +108,6 @@ class SimpleStorageService:
                 else model_dir + "/" + model_name
             )
             model_file = func()
-            print(model_file)
             file_object = self.get_file_object(model_file, bucket_name)
             model_obj = self.read_object(file_object, decode=False)
             model = pickle.loads(model_obj)
