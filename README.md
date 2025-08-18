@@ -16,17 +16,17 @@ Key highlights of the pipeline:
 
 ## Repository Structure
 
-E2E_Telecom_churn_prediction/
-│
-├── Telecom_churn_prediction/       # Core ML pipeline code (ingestion, validation, transformation, training)
-├── notebooks/                      # Jupyter notebooks for EDA and experimentation
-├── app.py                          # Web API (Flask/FastAPI/Streamlit) for inference
-├── Dockerfile                      # Containerization for deployment
-├── requirements.txt                # Python dependencies
-├── setup.py                        # Packaging script
-├── template.py / tcp.json          # Config templates
-├── Telco_Customer_Churn.csv        # Raw dataset (optional / example data)
-└── README.md                       # Project documentation
+  E2E_Telecom_churn_prediction/
+  │
+  ├── Telecom_churn_prediction/       # Core ML pipeline code (ingestion, validation, transformation, training)
+  ├── notebooks/                      # Jupyter notebooks for EDA and experimentation
+  ├── app.py                          # Web API (Flask/FastAPI/Streamlit) for inference
+  ├── Dockerfile                      # Containerization for deployment
+  ├── requirements.txt                # Python dependencies
+  ├── setup.py                        # Packaging script
+  ├── template.py / tcp.json          # Config templates
+  ├── Telco_Customer_Churn.csv        # Raw dataset (optional / example data)
+  └── README.md                       # Project documentation
 
 ## Dataset
 
