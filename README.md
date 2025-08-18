@@ -16,6 +16,7 @@ Key highlights of the pipeline:
 
 ## Repository Structure
 
+```
   E2E_Telecom_churn_prediction/
   │
   ├── Telecom_churn_prediction/       # Core ML pipeline code (ingestion, validation, transformation, training)
@@ -27,6 +28,7 @@ Key highlights of the pipeline:
   ├── template.py / tcp.json          # Config templates
   ├── Telco_Customer_Churn.csv        # Raw dataset (optional / example data)
   └── README.md                       # Project documentation
+```
 
 ## Dataset
 
@@ -45,20 +47,20 @@ Key highlights of the pipeline:
 * ### Data Ingestion
   Reads raw CSV, validates schema, handles missing values
 * ### Data Validation & Transformation
-  Encodes categorical + scales numerical features
-  Handles outliers and type conversions
+  * Encodes categorical + scales numerical features
+  * Handles outliers and type conversions
 * ### Balancing
   Uses SMOTENC to oversample churn class without breaking categorical features
 * ### Model Training
-  Base models: RandomForest, XGBoost, LightGBM, CatBoost
-  Meta-model: Logistic Regression (stacking ensemble)
+  * Base models: RandomForest, XGBoost, LightGBM, CatBoost
+  * Meta-model: Logistic Regression (stacking ensemble)
 * ### Evaluation
-  Metrics: Accuracy, Precision, Recall, F1, ROC-AUC
-  Confusion matrix comparison: Local vs Production models
+  * Metrics: Accuracy, Precision, Recall, F1, ROC-AUC
+  * Confusion matrix comparison: Local vs Production models
 * ### Model Packaging & Deployment
-  TelcoChurnModel wraps preprocessing + model in one pipeline
-  Serialized with pickle and stored in AWS S3
-  Served via FastAPI (app.py) and Dockerized
+  * TelcoChurnModel wraps preprocessing + model in one pipeline
+  * Serialized with pickle and stored in AWS S3
+  * Served via FastAPI (app.py) and Dockerized
 
 ## Results
 
@@ -79,13 +81,13 @@ These metrics indicate that the model is reliable for identifying churners, whic
 ## Local Setup
 
 * Clone repo
-  git clone https://github.com/Manjuatgithub25/E2E_Telecom_churn_prediction.git
-  cd E2E_Telecom_churn_prediction
+  * git clone https://github.com/Manjuatgithub25/E2E_Telecom_churn_prediction.git
+  * cd E2E_Telecom_churn_prediction
 
 * Create venv
-  python3 -m venv venv
-  source venv/bin/activate  # (Linux/Mac)
-  venv\Scripts\activate     # (Windows)
+  * python3 -m venv venv
+  * source venv/bin/activate  # (Linux/Mac)
+  * venv\Scripts\activate     # (Windows)
 
 * Install dependencies
   pip install -r requirements.txt
@@ -97,9 +99,9 @@ These metrics indicate that the model is reliable for identifying churners, whic
 
 * Create IAM user for deployment
   * Policy:
-    AmazonEC2ContainerRegistryFullAccess
-    AmazonEC2FullAccess
-    AmazonS3FullAccess
+    * AmazonEC2ContainerRegistryFullAccess
+    * AmazonEC2FullAccess
+    * AmazonS3FullAccess
 * Create ECR repo to store/save docker image
 * Create EC2 machine (Ubuntu). Connect EC2 instance and Install docker in EC2 Machine:
   * curl -fsSL https://get.docker.com -o get-docker.sh
@@ -109,10 +111,10 @@ These metrics indicate that the model is reliable for identifying churners, whic
 * Configure EC2 as self-hosted runner:
   Create a new self-hosted runner in Github settings -> Action -> runners -> create self-hosted and run the given comments in docker.
 * Setup github secrets:
-  AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY
-  AWS_DEFAULT_REGION
-  ECR_REPO
+  * AWS_ACCESS_KEY_ID
+  * AWS_SECRET_ACCESS_KEY
+  * AWS_DEFAULT_REGION
+  * ECR_REPO
 
 ## License
 
