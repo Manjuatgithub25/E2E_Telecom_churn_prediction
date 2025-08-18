@@ -2,6 +2,7 @@
 
 An end-to-end machine learning system to predict customer churn for a telecom provider. This project demonstrates a production-ready ML pipeline including data ingestion, validation, preprocessing, feature engineering, balancing (SMOTENC), ensemble modeling, evaluation, and deployment.
 
+<img src="images/Telecom_churn.png" alt="App Home Screen" width="600"/>   <img src="images/Telecom_churn1.png" alt="App Home Screen" width="600"/>
 
 ## Project Overview
 
