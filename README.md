@@ -103,14 +103,18 @@ These metrics indicate that the model is reliable for identifying churners, whic
     * AmazonEC2ContainerRegistryFullAccess
     * AmazonEC2FullAccess
     * AmazonS3FullAccess
+      
 * Create ECR repo to store/save docker image
+  
 * Create EC2 machine (Ubuntu). Connect EC2 instance and Install docker in EC2 Machine:
   * curl -fsSL https://get.docker.com -o get-docker.sh
   * sudo sh get-docker.sh
   * sudo usermod -aG docker ubuntu
   * newgrp docker
+    
 * Configure EC2 as self-hosted runner:
   Create a new self-hosted runner in Github settings -> Action -> runners -> create self-hosted and run the given comments in docker.
+  
 * Setup github secrets:
   * AWS_ACCESS_KEY_ID
   * AWS_SECRET_ACCESS_KEY
